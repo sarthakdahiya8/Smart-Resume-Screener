@@ -1,81 +1,143 @@
-# 🤖 Smart Resume Screener (AI-Powered)
 
-An AI-powered resume screening web application built using **Streamlit**, **HuggingFace embeddings**, and **OpenRouter (LLMs)** that evaluates resumes against a job description and ranks candidates based on semantic relevance.
+# 🤖 Smart Resume Screener (AI-Powered Resume Matching)
 
-This project demonstrates how modern ATS systems use **semantic similarity + LLM reasoning** instead of traditional keyword matching.
+Smart Resume Screener is an **AI-powered resume screening web application** built using **Streamlit**, **HuggingFace sentence embeddings**, and **OpenRouter LLMs**.
+It automatically evaluates multiple resumes against a given Job Description and ranks candidates based on **semantic relevance**, not keyword matching.
 
----
-
-## 📌 Features
-
-### ✅ Core Functionality
-- Upload multiple resumes (PDF format)
-- Paste any Job Description
-- Automatic resume parsing and ranking
-- AI-generated HR-style justification for each candidate
-
-### 🧠 AI Capabilities
-- Semantic similarity (not keyword-based)
-- HuggingFace sentence embeddings (local & free)
-- LLM-powered reasoning via OpenRouter
-- Context-aware ranking
-
-### 📊 UI Features
-- Clean Streamlit interface
-- Progress bar for relevance score
-- Ranked candidate table
-- AI analysis for each resume
+This project simulates how modern **ATS (Applicant Tracking Systems)** work using **NLP + AI reasoning**.
 
 ---
 
-## 🏗️ Tech Stack
+## ✨ Key Features
 
-| Layer | Technology |
-|-----|-----------|
-| Frontend | Streamlit |
-| Embeddings | HuggingFace (`all-MiniLM-L6-v2`) |
-| Similarity | Cosine Similarity (scikit-learn) |
-| LLM | OpenRouter (LangChain) |
-| PDF Parsing | PyPDF2 |
-| Language | Python 3.9+ |
+- 📄 Upload multiple resumes (PDF format)
+- 📝 Paste any Job Description
+- 🧠 Semantic similarity scoring using embeddings
+- 📊 Resume ranking with percentage match
+- 🤖 AI-generated HR-style reasoning (2 sentences per candidate)
+- ⚡ Fast, simple, and interactive Streamlit UI
 
 ---
 
-## 📂 Project Structure
-Smart-Resume-Screener/
-│
-├── app.py # Streamlit application
-├── requirements.txt # Python dependencies
-├── README.md # Project documentation
-├── .gitignore
-└── .streamlit/
-└── secrets.toml # API keys (NOT committed)
-
----
-
-## 🚀 How It Works
+## 🧠 How the System Works
 
 ### 1️⃣ Job Description Processing
-- User pastes job description
-- Text is converted into an embedding vector
+- User pastes the Job Description
+- JD text is converted into an embedding vector using HuggingFace
 
 ### 2️⃣ Resume Processing
-- PDF resumes are uploaded
+- User uploads multiple PDF resumes
 - Text is extracted using PyPDF2
-- Each resume is embedded using HuggingFace
+- Each resume is converted into an embedding vector
 
 ### 3️⃣ Similarity Scoring
 - Cosine similarity is calculated between:
   - Job Description embedding
   - Resume embedding
-- Score is normalized to **0–100%**
+- Score is converted into **percentage (0–100%)**
 
 ### 4️⃣ AI Reasoning
-- Resume + JD snippets are sent to an LLM
-- The LLM generates a **2-sentence HR justification**
-
-### 5️⃣ Output
-- Candidates are ranked by relevance
-- Displayed with a progress bar and AI explanation
+- A snippet of JD + Resume is sent to an LLM via OpenRouter
+- LLM generates a **2-sentence HR-style explanation**
 
 ---
+
+## 🧮 Scoring Logic
+
+```python
+score = cosine_similarity(jd_vector, resume_vector)
+final_score = round(score * 100, 2)
+```
+
+### Score Interpretation
+| Score Range | Meaning |
+|------------|--------|
+| 80–100% | Excellent fit |
+| 60–80% | Good match |
+| 40–60% | Partial match |
+| <40% | Low relevance |
+
+---
+
+## 🏗️ Tech Stack
+
+- Streamlit
+- HuggingFace (`all-MiniLM-L6-v2`)
+- Scikit-learn
+- OpenRouter (LangChain)
+- PyPDF2
+- Python 3.9+
+
+---
+
+## 📂 Project Structure
+
+```
+Smart-Resume-Screener/
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── .streamlit/
+    └── secrets.toml
+```
+
+---
+
+## 🔐 API Key Setup
+
+Create `.streamlit/secrets.toml`:
+
+```toml
+OPENROUTER_API_KEY = "your_openrouter_api_key_here"
+```
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/sarthakdahiya8/Smart-Resume-Screener.git
+cd Smart-Resume-Screener
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+---
+
+## ☁️ Deployment (Streamlit Cloud)
+
+1. Push code to GitHub
+2. Go to https://streamlit.io/cloud
+3. Create a new app
+4. Select repo, branch `main`, file `app.py`
+5. Add secrets and deploy
+
+---
+
+## ⚠️ Limitations
+
+- Scanned resumes not supported
+- Very long resumes embedded as single block
+- LLM output depends on model availability
+
+---
+
+## 🔮 Future Improvements
+
+- Resume chunking
+- Skill extraction
+- OCR support
+- CSV export
+- Role-based scoring
+
+---
+
+## 👤 Author
+
+**Sarthak Dahiya**  
+GitHub: https://github.com/sarthakdahiya8
+
+---
+
+⭐ If you like this project, give it a star on GitHub!
