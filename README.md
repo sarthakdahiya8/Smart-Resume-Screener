@@ -103,18 +103,6 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
----
-
-## ☁️ Deployment (Streamlit Cloud)
-
-1. Push code to GitHub
-2. Go to https://streamlit.io/cloud
-3. Create a new app
-4. Select repo, branch `main`, file `app.py`
-5. Add secrets and deploy
-
----
-
 ## ⚠️ Limitations
 
 - Scanned resumes not supported
