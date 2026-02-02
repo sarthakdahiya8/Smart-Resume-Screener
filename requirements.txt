@@ -1,0 +1,8 @@
+streamlit
+pandas
+pypdf2
+langchain-openai
+langchain-huggingface
+sentence-transformers
+scikit-learn
+numpy
